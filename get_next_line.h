@@ -6,7 +6,7 @@
 /*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 14:42:53 by abahmani          #+#    #+#             */
-/*   Updated: 2021/01/31 15:09:00 by abahmani         ###   ########.fr       */
+/*   Updated: 2021/02/07 11:34:50 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(char *s);
-char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_substr(char *s, unsigned int start, size_t len, int f);
 char	*ft_strjoin(char *s1, char *s2);
 
 #endif

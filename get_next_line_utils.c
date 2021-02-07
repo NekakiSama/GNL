@@ -6,7 +6,7 @@
 /*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 07:22:30 by abahmani          #+#    #+#             */
-/*   Updated: 2021/01/31 16:39:58 by abahmani         ###   ########.fr       */
+/*   Updated: 2021/02/07 11:35:25 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ static char		*ft_malloc(unsigned int start, size_t len, size_t size)
 	}
 	else
 		ptr = malloc(sizeof(char));
+	if (!ptr)
+		return (NULL);
 	return (ptr);
 }
 
-char			*ft_substr(char *s, unsigned int start, size_t len)
+char			*ft_substr(char *s, unsigned int start, size_t len, int f)
 {
 	size_t	size;
 	size_t	i;
@@ -59,6 +61,8 @@ char			*ft_substr(char *s, unsigned int start, size_t len)
 		i++;
 	}
 	ptr[i] = '\0';
+	if (!f)
+		free(s);
 	return (ptr);
 }
 
@@ -89,5 +93,8 @@ char			*ft_strjoin(char *s1, char *s2)
 	str = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!str)
 		return (NULL);
-	return (concat(s2, concat(s1, str, 0), s1_len));
+	str = concat(s2, concat(s1, str, 0), s1_len);
+	if (s1)
+		free(s1);
+	return (str);
 }
