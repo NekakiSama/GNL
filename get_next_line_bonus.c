@@ -6,11 +6,11 @@
 /*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 10:53:47 by abahmani          #+#    #+#             */
-/*   Updated: 2021/02/20 07:41:55 by abahmani         ###   ########.fr       */
+/*   Updated: 2021/02/20 08:00:47 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int				find_new_line(char *str)
 {
@@ -84,22 +84,22 @@ int				get_next_line(int fd, char **line)
 {
 	int				ret;
 	char			buf[BUFFER_SIZE + 1];
-	static char		*str = NULL;
+	static char		*str[1024];
 	int				newline;
 
 	if (!line || BUFFER_SIZE <= 0 || read(fd, buf, 0))
 		return (-1);
-	if (!str)
+	if (!str[fd])
 	{
-		str = malloc(sizeof(char));
-		str[0] = '\0';
+		str[fd] = malloc(sizeof(char));
+		str[fd][0] = '\0';
 	}
 	while ((ret = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
-		newline = fill_buf(buf, line, &str, ret);
+		newline = fill_buf(buf, line, &str[fd], ret);
 		if (newline == 1 || newline == -1)
-			return (free_str(newline, &str));
+			return (free_str(newline, &str[fd]));
 	}
-	newline = end(ret, &str, line);
-	return (free_str(newline, &str));
+	newline = end(ret, &str[fd], line);
+	return (free_str(newline, &str[fd]));
 }
